@@ -1,75 +1,95 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+// app/(tabs)/index.tsx
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { Image } from 'expo-image'
+import { useRouter } from 'expo-router'
+import ParallaxScrollView from '@/components/ParallaxScrollView'
+import { ThemedText } from '@/components/ThemedText'
+import { ThemedView } from '@/components/ThemedView'
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+interface UPA {
+  id: string
+  name: string
+  queueLength: number
+  doctorsOnDuty: number
+  avgWaitTime: number
+}
+
+const mockUPAs: UPA[] = [
+  { id: '1', name: 'UPA Centro', queueLength: 5, doctorsOnDuty: 2, avgWaitTime: 30 },
+  { id: '2', name: 'UPA Norte', queueLength: 10, doctorsOnDuty: 1, avgWaitTime: 45 },
+  { id: '3', name: 'UPA Sul', queueLength: 2, doctorsOnDuty: 3, avgWaitTime: 15 },
+]
 
 export default function HomeScreen() {
+  const [upas, setUpas] = useState<UPA[]>([])
+  const [loading, setLoading] = useState(true)
+  const router = useRouter()
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setUpas(mockUPAs)
+      setLoading(false)
+    }, 800)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const renderItem = ({ item }: { item: UPA }) => (
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => router.push(`/upa/${item.id}`)}
+    >
+      <ThemedText type="subtitle">{item.name}</ThemedText>
+      <ThemedText>Fila: {item.queueLength}</ThemedText>
+      <ThemedText>Médicos: {item.doctorsOnDuty}</ThemedText>
+      <ThemedText>Espera: {item.avgWaitTime} min</ThemedText>
+    </TouchableOpacity>
+  )
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          source={require('@/assets/images/download.jpg')}
+          style={styles.headerImage}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
+      }
+    >
+      <ThemedView style={styles.container}>
+        <ThemedText type="title">Monitor de UPAs</ThemedText>
+        {loading
+          ? <ActivityIndicator size="large" style={{ marginTop: 16 }} />
+          : (
+            <FlatList
+              data={upas}
+              keyExtractor={i => i.id}
+              renderItem={renderItem}
+              contentContainerStyle={styles.list}
+            />
+          )}
       </ThemedView>
     </ParallaxScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: { padding: 16 },
+  list: { paddingBottom: 32 },
+  card: {
+    marginBottom: 12,
+    padding: 16,
+    borderRadius: 8,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 3,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  headerImage: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'cover',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+})
