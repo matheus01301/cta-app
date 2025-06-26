@@ -57,7 +57,7 @@ export default function HomeScreen() {
       }
     >
       <ThemedView style={styles.container}>
-        <ThemedText type="title">Monitor de UPAs</ThemedText>
+        <ThemedText type="title">Monitor de UPAs+</ThemedText>
         {loading
           ? <ActivityIndicator size="large" style={{ marginTop: 16 }} />
           : (
