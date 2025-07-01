@@ -1,4 +1,3 @@
-// app/upa/[id].tsx
 import React from 'react'
 import { StyleSheet, Button, Alert, Linking, Platform } from 'react-native'
 import { useLocalSearchParams } from 'expo-router'
@@ -36,10 +35,8 @@ export default function UPADetail() {
     let url: string
 
     if (Platform.OS === 'android') {
-      // abre diretamente o Google Maps em modo navegação
       url = `google.navigation:q=${query}`
     } else {
-      // esquema para Apple Maps
       url = `maps://?q=${query}`
     }
 
@@ -48,7 +45,6 @@ export default function UPADetail() {
         if (supported) {
           return Linking.openURL(url)
         }
-        // fallback web
         const browserUrl = `https://www.google.com/maps/search/?api=1&query=${query}`
         return Linking.openURL(browserUrl)
       })
