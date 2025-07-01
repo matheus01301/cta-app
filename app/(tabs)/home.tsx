@@ -1,7 +1,7 @@
 // app/home/home.tsx
-import React from 'react'
-import { SafeAreaView, View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 import { useRouter } from 'expo-router'
+import React from 'react'
+import { SafeAreaView, StyleSheet, View, } from 'react-native'
 
 export default function HomeScreen() {
   const router = useRouter()
@@ -14,9 +14,9 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       {/* Body */}
       <View style={styles.body}>
-        <TouchableOpacity style={styles.button} onPress={handleEntrar}>
+        {/* <TouchableOpacity style={styles.button} onPress={handleEntrar}>
           <Text style={styles.buttonText}>Entrar</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       {/* Footer */}

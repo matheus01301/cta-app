@@ -1,12 +1,12 @@
-import React from 'react'
-import { SafeAreaView, StyleSheet, Image, Text, TouchableOpacity } from 'react-native'
 import { useRouter } from 'expo-router'
+import React from 'react'
+import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 export default function HomeScreen() {
   const router = useRouter()
   
   function handleEntrar() {
-    router.push('/home/home')
+    router.push('/(tabs)/home')
   }
 
   return (
