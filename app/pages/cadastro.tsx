@@ -1,11 +1,7 @@
-// app/home/home.tsx
 import React, { useState } from 'react'
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, ScrollView, TextInput, Dimensions } from 'react-native'
+import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, ScrollView, TextInput } from 'react-native'
 import { useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
-
-// obtém largura da tela para cálculos responsivos, se necessário
-const { width: screenWidth } = Dimensions.get('window')
 
 interface UPA {
   id: string
@@ -44,70 +40,54 @@ const upas: UPA[] = [
     queueLength: 5,
     avgWaitTime: 20,
   },
-  {
-    id: '5',
-    name: 'UPA Oeste',
-    address: 'Av. João XXIII, s/n - Felipe Camarão, Natal - RN',
-    queueLength: 20,
-    avgWaitTime: 50,
-  },
-  {
-    id: '6',
-    name: 'UPA Leste',
-    address: 'Av. Prudente de Morais, 75 - Tirol, Natal - RN',
-    queueLength: 3,
-    avgWaitTime: 10,
-  },
 ]
 
 export default function HomeScreen() {
   const router = useRouter()
   const [search, setSearch] = useState('')
 
-  // filtra UPAs pelo nome ou cidade
+  function handleCardPress(id: string) {
+    router.push(`/upa/${id}`)
+  }
+
   const filtered = upas.filter(u =>
     u.name.toLowerCase().includes(search.toLowerCase()) ||
     u.address.toLowerCase().includes(search.toLowerCase())
   )
 
-  function handleCardPress(id: string) {
-    router.push(`/upa/${id}`)
-  }
-
   return (
     <SafeAreaView style={styles.container}>
-      {/* Search */}
       <View style={styles.searchContainer}>
-        <Ionicons name="search" size={20} color="#3A9D50" style={styles.searchIcon} />
         <TextInput
           value={search}
           onChangeText={setSearch}
-          placeholder="Procurar por UPA/Cidade..."
+          placeholder="Procurar por Upa/Cidade..."
           placeholderTextColor="#aaa"
           style={styles.searchInput}
         />
+        <Ionicons name="search" size={24} color="#3A9D50" style={styles.searchIcon} />
       </View>
 
-      {/* Grid de cards */}
-      <ScrollView contentContainerStyle={styles.grid} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.grid}
+        showsVerticalScrollIndicator={false}
+      >
         {filtered.map(upa => (
-          <TouchableOpacity
-            key={upa.id}
-            style={styles.card}
-            onPress={() => handleCardPress(upa.id)}
-            activeOpacity={0.8}
-          >
+          <View key={upa.id} style={styles.card}>
             <Text style={styles.cardTitle}>{upa.name}</Text>
             <Text style={styles.cardAddress}>{upa.address}</Text>
             <Text style={styles.cardQueueNumber}>{upa.queueLength}</Text>
             <Text style={styles.cardQueueLabel}>pessoas na fila</Text>
             <Text style={styles.cardWaitTime}>
-              tempo de espera estimado: {upa.avgWaitTime} min
+              tempo de espera estimado: {upa.avgWaitTime} minutos
             </Text>
-            <View style={styles.cardButtonContainer}>
+            <TouchableOpacity
+              style={styles.cardButton}
+              onPress={() => handleCardPress(upa.id)}
+            >
               <Text style={styles.cardButtonText}>entrar em fila</Text>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
         ))}
       </ScrollView>
     </SafeAreaView>
@@ -118,21 +98,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#3A9D50',
-    paddingHorizontal: 16,
-    paddingTop: 16,
+    padding: 48,
   },
   searchContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
     borderRadius: 12,
     paddingHorizontal: 16,
-    height: 48,
+    height: 50,
+    marginTop: 32,
     marginBottom: 16,
-    width: '100%',
-  },
-  searchIcon: {
-    marginRight: 8,
+    marginLeft: 16,
+    marginRight: 16,
   },
   searchInput: {
     flex: 1,
@@ -140,46 +119,47 @@ const styles = StyleSheet.create({
     color: '#333',
     paddingVertical: 8,
   },
+  searchIcon: {
+    marginLeft: 8,
+  },
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    paddingBottom: 16,
+    paddingHorizontal: 16,
   },
   card: {
-    width: (screenWidth - 16 * 2 - 16) / 2,
+    width: '48%',
     backgroundColor: '#fff',
     borderRadius: 12,
-    padding: 12,
+    padding: 16,
     marginBottom: 16,
-    // garante que o botão fique na base
-    flexDirection: 'column',
+    alignItems: 'center',
+    elevation: 3,
   },
   cardTitle: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 8,
     textAlign: 'center',
+    marginBottom: 8,
   },
   cardAddress: {
     fontSize: 12,
     color: '#666',
-    marginBottom: 12,
     textAlign: 'center',
+    marginBottom: 12,
   },
   cardQueueNumber: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 4,
-    textAlign: 'center',
   },
   cardQueueLabel: {
     fontSize: 12,
     color: '#333',
     marginBottom: 8,
-    textAlign: 'center',
   },
   cardWaitTime: {
     fontSize: 10,
@@ -187,18 +167,17 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     textAlign: 'center',
   },
-  cardButtonContainer: {
+  cardButton: {
     backgroundColor: '#5DB075',
-    borderRadius: 6,
+    borderRadius: 8,
     paddingVertical: 8,
+    paddingHorizontal: 16,
+    width: '100%',
     alignItems: 'center',
-    // empurra o botão para o fim do card
-    marginTop: 'auto',
   },
   cardButtonText: {
     color: '#fff',
     fontSize: 14,
-    fontWeight: '600',
     textTransform: 'uppercase',
   },
 })
