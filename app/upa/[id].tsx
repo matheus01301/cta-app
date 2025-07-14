@@ -67,7 +67,8 @@ export default function UPACadastro() {
           <TextInput
             value={nome}
             onChangeText={setNome}
-            placeholder="Lorena Celani"
+            placeholder="Nome"
+            placeholderTextColor="rgba(0, 0, 0, 0.3)"
             style={styles.input}
           />
 
@@ -75,6 +76,7 @@ export default function UPACadastro() {
           <TextInput
             value={cpf}
             onChangeText={setCpf}
+            placeholderTextColor="rgba(0, 0, 0, 0.3)"
             placeholder="000.000.000-00"
             keyboardType="numeric"
             style={styles.input}
@@ -84,6 +86,7 @@ export default function UPACadastro() {
           <TextInput
             value={rg}
             onChangeText={setRg}
+            placeholderTextColor="rgba(0, 0, 0, 0.3)"
             placeholder="102920492"
             keyboardType="numeric"
             style={styles.input}
@@ -93,6 +96,7 @@ export default function UPACadastro() {
           <TextInput
             value={sintomas}
             onChangeText={setSintomas}
+            placeholderTextColor="rgba(0, 0, 0, 0.3)"
             placeholder="Febre, coriza, tosse..."
             multiline
             style={[styles.input, styles.textArea]}

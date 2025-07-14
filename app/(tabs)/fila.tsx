@@ -1,13 +1,13 @@
-import { useRouter } from 'expo-router'
+// import { useRouter } from 'expo-router'
 import React from 'react'
 import { SafeAreaView, StyleSheet, View, } from 'react-native'
 
 export default function HomeScreen() {
-  const router = useRouter()
+  // const router = useRouter()
 
-  function handleEntrar() {
-    router.push('/')
-  }
+  // function handleEntrar() {
+  //   router.push('/')
+  // }
 
   return (
     <SafeAreaView style={styles.container}>

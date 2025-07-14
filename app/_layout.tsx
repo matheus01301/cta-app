@@ -1,12 +1,20 @@
-// app/_layout.tsx
+import React, { useEffect } from 'react'
+import { Platform } from 'react-native'
 import { useColorScheme } from '@/hooks/useColorScheme'
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { Stack } from 'expo-router'
-import { StatusBar } from 'expo-status-bar'
+import { StatusBar as ExpoStatusBar } from 'expo-status-bar'
+import * as NavigationBar from 'expo-navigation-bar'
 import 'react-native-reanimated'
 
 export default function RootLayout() {
   const colorScheme = useColorScheme()
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      NavigationBar.setVisibilityAsync('hidden')
+    }
+  }, [])
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -15,9 +23,9 @@ export default function RootLayout() {
         <Stack.Screen name="home" options={{ headerShown: false }} />
         <Stack.Screen name="pages/cadastro" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="upa/[id]" options={{ title: 'Detalhes da UPA' }} />
+        <Stack.Screen name="upa/[id]" options={{ headerShown: false }} />
       </Stack>
-      <StatusBar style="auto" />
+      <ExpoStatusBar hidden />
     </ThemeProvider>
   )
 }

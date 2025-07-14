@@ -62,7 +62,7 @@ export default function HomeScreen() {
           value={search}
           onChangeText={setSearch}
           placeholder="Procurar por Upa/Cidade..."
-          placeholderTextColor="#aaa"
+          placeholderTextColor='rgba(17, 231, 53, 0.3)'
           style={styles.searchInput}
         />
         <Ionicons name="search" size={24} color="#3A9D50" style={styles.searchIcon} />
