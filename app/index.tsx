@@ -21,6 +21,7 @@ export default function HomeScreen() {
       <TouchableOpacity style={styles.button} onPress={handleEntrar}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
+      <Text style={styles.welcomeText}>Bem vindo ao monitor de UPA'S</Text>
     </SafeAreaView>
   )
 }
@@ -38,18 +39,20 @@ const styles = StyleSheet.create({
     width: 400,
     height: 400,
     resizeMode: 'contain',
-    marginBottom: 24,
+    marginBottom: '40%',
+    
   },
   message: {
-    fontSize: 18,
-    color: '#333',
+    fontSize: 16,
+    color: '#1E1E1E',
     textAlign: 'center',
-    marginBottom: 16,
+    marginBottom: 22,
+    
   },
   button: {
-    width: '80%',
-    backgroundColor: '#5DB075',
-    paddingVertical: 12,
+    width: '85%',
+    backgroundColor: '#16722A',
+    paddingVertical: 16,
     borderRadius: 25,
     alignItems: 'center',
   },
@@ -57,5 +60,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  welcomeText: {
+    color: '#5DB075',
+    fontSize: 16,
+    fontWeight: '600',
+    marginTop: 22,
   },
 })

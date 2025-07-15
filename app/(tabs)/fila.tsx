@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, Image, Linking, Platform, Dimensions, Alert } from 'react-native'
 import { useLocalSearchParams } from 'expo-router'
+import { red } from 'react-native-reanimated/lib/typescript/Colors'
 
 interface FilaInfo {
   upaName: string
@@ -90,11 +91,13 @@ export default function FilaScreen() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.bodyCenter}>
-          <Image
-          source={require('@/assets/images/ops.png')}
-          style={styles.opsImage}
-        />
-          <Text style={styles.opsTitle}>Ops!</Text>
+          <View style={styles.photoDiv}>
+            <Image
+            source={require('@/assets/images/ops.png')}
+            style={styles.opsImage}
+            />
+            <Text style={styles.opsTitle}>Ops!</Text>
+          </View>
           <Text style={styles.opsSubtitle}>
             você não se encontra cadastrado em nenhuma fila.
           </Text>
@@ -181,17 +184,19 @@ export default function FilaScreen() {
           source={require('@/assets/images/icon-map.png')}
           style={styles.iconMap}
         />
-        <Text style={styles.routeAddress}>
-          {fila.address}
-        </Text>
-        <TouchableOpacity
-          style={styles.routeButton}
-          onPress={openMaps}
-        >
-          <Text style={styles.routeButtonText}>
-            Ir para rotas
+        <View style={styles.adressContainer}>
+          <Text style={styles.routeAddress}>
+            {fila.address}
           </Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.routeButton}
+            onPress={openMaps}
+          >
+            <Text style={styles.routeButtonText}>
+              Ir para rotas
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       <Text style={styles.footerNote}>
@@ -218,22 +223,22 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 16,
   },
-  headerText: { fontSize: 16, textAlign: 'center', color: '#333' },
+  headerText: { fontSize: 20, textAlign: 'center', color: '#333', fontWeight: 'bold', },
   mainCard: {
     backgroundColor: '#fff',
     margin: 16,
     borderRadius: 8,
-    padding: 16,
+    padding: 22,
     alignItems: 'center',
   },
-  mainLabel: { fontSize: 14, color: '#666' },
+  mainLabel: { fontSize: 16, color: '#282828' },
   mainPosition: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#333',
+    fontSize: 40,
+    fontWeight: 'regular',
+    color: '#282828',
     marginVertical: 8,
   },
-  mainAhead: { fontSize: 12, color: '#666' },
+  mainAhead: { fontSize: 16, color: '#282828' },
   gridRow: { flexDirection: 'row', marginHorizontal: 16, marginTop: 8 },
   subCard: {
     flex: 1,
@@ -243,18 +248,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    width: 32,
-    height: 32,
+    width: 51,
+    height: 51,
     marginBottom: 8,
-    tintColor: '#3A9D50',
+    tintColor: '#16722A',
   },
   subValue: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 40,
+    fontWeight: 'regular',
     color: '#333',
   },
-  subLabel: { fontSize: 12, color: '#666', marginTop: 4 },
+  subLabel: { fontSize: 16, color: '#282828', marginTop: 12 },
   routeCard: {
+    flexDirection: 'row',
     backgroundColor: '#fff',
     margin: 16,
     borderRadius: 8,
@@ -262,30 +268,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconMap: {
-    width: 40,
-    height: 40,
-    tintColor: '#3A9D50',
-    marginBottom: 8,
+    width: 58,
+    height: 58,
+    tintColor: '#16722A',
+    // marginBottom: 8,
+    // marginRight: 16,
+    margin: 16,
   },
   routeAddress: {
     fontSize: 12,
-    color: '#333',
+    color: '#282828',
     textAlign: 'center',
     marginBottom: 12,
   },
   routeButton: {
-    backgroundColor: '#5DB075',
-    borderRadius: 6,
-    paddingVertical: 12,
-    paddingHorizontal: 24,
+    backgroundColor: '#16722A',
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 40,
+    
   },
-  routeButtonText: { color: '#fff', fontSize: 14 },
+  routeButtonText: { color: '#fff', fontSize: 16, textAlign: 'center', },
   footerNote: {
-    fontSize: 10,
+    fontSize: 12,
     color: '#fff',
     textAlign: 'center',
     marginHorizontal: 16,
-    marginTop: 8,
+    // marginTop: 8,
+    maxWidth:350,
   },
   exitButton: {
     margin: 16,
@@ -294,11 +304,11 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     alignItems: 'center',
   },
-  exitText: { color: '#d00', fontSize: 14 },
+  exitText: { color: '#d00', fontSize: 16 },
     opsImage: {
     width: 120,
     height: 120,
-    marginBottom: 24,
+    margin: 8,
     resizeMode: 'contain',
   },
   bodyCenter: {
@@ -307,21 +317,49 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
   },
+  photoDiv: {
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 16,
+  },
   opsTitle: {
-    fontSize: 32,
+    fontSize: 70,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.20,
+    shadowRadius: 4,
+    elevation: 5,  
   },
   opsSubtitle: {
-    fontSize: 16,
+    fontSize: 24,
     color: '#fff',
     textAlign: 'center',
-    marginBottom: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.40,
+    shadowRadius: 4,
+    elevation: 5,
+    marginBottom: 10,
+    maxWidth: 315,
   },
   opsFooter: {
-    fontSize: 14,
+    fontSize: 20,
     color: '#fff',
     textAlign: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.40,
+    shadowRadius: 4,
+    elevation: 5,
+    marginTop: 10,
+    maxWidth: 315,
   },
+  adressContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 10,
+  }
 })
