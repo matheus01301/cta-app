@@ -1,10 +1,8 @@
-// app/home/home.tsx
 import React, { useState } from 'react'
 import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, ScrollView, TextInput, Dimensions } from 'react-native'
 import { useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 
-// obtém largura da tela para cálculos responsivos, se necessário
 const { width: screenWidth } = Dimensions.get('window')
 
 interface UPA {
@@ -64,7 +62,6 @@ export default function HomeScreen() {
   const router = useRouter()
   const [search, setSearch] = useState('')
 
-  // filtra UPAs pelo nome ou cidade
   const filtered = upas.filter(u =>
     u.name.toLowerCase().includes(search.toLowerCase()) ||
     u.address.toLowerCase().includes(search.toLowerCase())
@@ -76,40 +73,43 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Search */}
-      <View style={styles.searchContainer}>
-        <Ionicons name="search" size={20} color="#3A9D50" style={styles.searchIcon} />
-        <TextInput
-          value={search}
-          onChangeText={setSearch}
-          placeholder="Procurar por UPA/Cidade..."
-          placeholderTextColor="#aaa"
-          style={styles.searchInput}
-        />
-      </View>
+      {/* ✅ View interna com padding horizontal */}
+      <View style={styles.innerContainer}>
+        {/* Search */}
+        <View style={styles.searchContainer}>
+          <Ionicons name="search" size={20} color="#3A9D50" style={styles.searchIcon} />
+          <TextInput
+            value={search}
+            onChangeText={setSearch}
+            placeholder="Procurar por UPA/Cidade..."
+            placeholderTextColor="#aaa"
+            style={styles.searchInput}
+          />
+        </View>
 
-      {/* Grid de cards */}
-      <ScrollView contentContainerStyle={styles.grid} showsVerticalScrollIndicator={false}>
-        {filtered.map(upa => (
-          <TouchableOpacity
-            key={upa.id}
-            style={styles.card}
-            onPress={() => handleCardPress(upa.id)}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.cardTitle}>{upa.name}</Text>
-            <Text style={styles.cardAddress}>{upa.address}</Text>
-            <Text style={styles.cardQueueNumber}>{upa.queueLength}</Text>
-            <Text style={styles.cardQueueLabel}>pessoas na fila</Text>
-            <Text style={styles.cardWaitTime}>
-              tempo de espera estimado: {upa.avgWaitTime} min
-            </Text>
-            <View style={styles.cardButtonContainer}>
-              <Text style={styles.cardButtonText}>entrar em fila</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+        {/* Grid de cards */}
+        <ScrollView contentContainerStyle={styles.grid} showsVerticalScrollIndicator={false}>
+          {filtered.map(upa => (
+            <TouchableOpacity
+              key={upa.id}
+              style={styles.card}
+              onPress={() => handleCardPress(upa.id)}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.cardTitle}>{upa.name}</Text>
+              <Text style={styles.cardAddress}>{upa.address}</Text>
+              <Text style={styles.cardQueueNumber}>{upa.queueLength}</Text>
+              <Text style={styles.cardQueueLabel}>pessoas na fila</Text>
+              <Text style={styles.cardWaitTime}>
+                tempo de espera estimado: {upa.avgWaitTime} min
+              </Text>
+              <View style={styles.cardButtonContainer}>
+                <Text style={styles.cardButtonText}>entrar em fila</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
     </SafeAreaView>
   )
 }
@@ -118,6 +118,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#3A9D50',
+    // ❌ Removido: paddingHorizontal: 16,
+    // paddingTop: 16, // movido para innerContainer
+  },
+  // ✅ Nova View interna
+  innerContainer: {
+    flex: 1,
     paddingHorizontal: 16,
     paddingTop: 16,
   },
@@ -152,7 +158,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 12,
     marginBottom: 16,
-    // garante que o botão fique na base
     flexDirection: 'column',
   },
   cardTitle: {
@@ -192,7 +197,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     paddingVertical: 8,
     alignItems: 'center',
-    // empurra o botão para o fim do card
     marginTop: 'auto',
   },
   cardButtonText: {
