@@ -73,7 +73,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* ✅ View interna com padding horizontal */}
+      {/*View interna com padding horizontal */}
       <View style={styles.innerContainer}>
         {/* Search */}
         <View style={styles.searchContainer}>
@@ -97,11 +97,11 @@ export default function HomeScreen() {
               activeOpacity={0.8}
             >
               <Text style={styles.cardTitle}>{upa.name}</Text>
-              <Text style={styles.cardAddress}>{upa.address}</Text>
+              <Text style={styles.cardAddress} numberOfLines={2}>{upa.address}</Text>
               <Text style={styles.cardQueueNumber}>{upa.queueLength}</Text>
               <Text style={styles.cardQueueLabel}>pessoas na fila</Text>
               <Text style={styles.cardWaitTime}>
-                tempo de espera estimado: {upa.avgWaitTime} min
+                tempo de espera: {upa.avgWaitTime} min
               </Text>
               <View style={styles.cardButtonContainer}>
                 <Text style={styles.cardButtonText}>entrar em fila</Text>
@@ -116,16 +116,16 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    // Removido paddingHorizontal: 16,
+    // paddingTop 16, movido para innerContainer
     flex: 1,
     backgroundColor: '#3A9D50',
-    // ❌ Removido: paddingHorizontal: 16,
-    // paddingTop: 16, // movido para innerContainer
   },
-  // ✅ Nova View interna
   innerContainer: {
+    // Nova view interna
     flex: 1,
     paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingTop: 16,  
   },
   searchContainer: {
     flexDirection: 'row',
@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 16,
     flexDirection: 'column',
+
   },
   cardTitle: {
     fontSize: 16,
@@ -174,11 +175,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   cardQueueNumber: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 4,
-    textAlign: 'center',
+  fontSize: 48,
+  fontWeight: 'bold',
+  color: '#333',
+  marginBottom: 4,
+  textAlign: 'center',
   },
   cardQueueLabel: {
     fontSize: 12,
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
   cardWaitTime: {
     fontSize: 10,
     color: '#666',
-    marginBottom: 12,
+    paddingBottom: 8,
     textAlign: 'center',
   },
   cardButtonContainer: {
@@ -201,8 +202,9 @@ const styles = StyleSheet.create({
   },
   cardButtonText: {
     color: '#fff',
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '600',
+    textAlign: 'center',
     textTransform: 'uppercase',
   },
 })
