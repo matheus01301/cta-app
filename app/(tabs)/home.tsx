@@ -104,7 +104,7 @@ export default function HomeScreen() {
                 tempo de espera: {upa.avgWaitTime} min
               </Text>
               <View style={styles.cardButtonContainer}>
-                <Text style={styles.cardButtonText}>entrar em fila</Text>
+                <Text style={styles.cardButtonText}>Entrar em fila</Text>
               </View>
             </TouchableOpacity>
           ))}
@@ -125,7 +125,8 @@ const styles = StyleSheet.create({
     // Nova view interna
     flex: 1,
     paddingHorizontal: 16,
-    paddingTop: 16,  
+    paddingTop: 16, 
+  
   },
   searchContainer: {
     flexDirection: 'row',
@@ -136,6 +137,11 @@ const styles = StyleSheet.create({
     height: 48,
     marginBottom: 16,
     width: '100%',
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.50,
+    shadowRadius: 4,
+    elevation: 3, 
   },
   searchIcon: {
     marginRight: 8,
@@ -159,7 +165,11 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 16,
     flexDirection: 'column',
-
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.50,
+    shadowRadius: 4,
+    elevation: 3, 
   },
   cardTitle: {
     fontSize: 16,
@@ -171,7 +181,7 @@ const styles = StyleSheet.create({
   cardAddress: {
     fontSize: 12,
     color: '#666',
-    marginBottom: 12,
+    marginBottom: 6,
     textAlign: 'center',
   },
   cardQueueNumber: {
@@ -194,7 +204,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   cardButtonContainer: {
-    backgroundColor: '#5DB075',
+    backgroundColor: '#16722A',
     borderRadius: 6,
     paddingVertical: 8,
     alignItems: 'center',
@@ -205,6 +215,5 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '600',
     textAlign: 'center',
-    textTransform: 'uppercase',
   },
 })
