@@ -44,7 +44,11 @@ export default function UPACadastro() {
       [
         {
           text: 'Ok',
-          onPress: () => router.push('/(tabs)/fila')
+           onPress: () =>
+   router.push({
+     pathname: '/(tabs)/fila',
+     params: { id },
+   })
         },
       ],
       { cancelable: false }
@@ -157,5 +161,3 @@ const styles = StyleSheet.create({
   },
   cancelText: { color: '#5DB075', fontSize: 14, fontWeight: 'bold' },
 })
-
-// Não esqueça de criar a tela de fila em app/(tabs)/fila.tsx para que a navegação funcione corretamente.
