@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.50,
     shadowRadius: 4,
-    elevation: 3, 
+    elevation: 6,
   },
   searchIcon: {
     marginRight: 8,
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.50,
     shadowRadius: 4,
-    elevation: 3, 
+    elevation: 6,
   },
   cardTitle: {
     fontSize: 16,

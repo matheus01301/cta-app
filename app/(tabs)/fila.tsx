@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity, Image, Linking, Platform, Dimensions, Alert } from 'react-native'
+import { SafeAreaView, ScrollView, View, StyleSheet, Text, TouchableOpacity, Image, Linking, Platform, Dimensions, Alert } from 'react-native'
 import { useLocalSearchParams } from 'expo-router'
 import { red } from 'react-native-reanimated/lib/typescript/Colors'
+import ClockIcon from '@/assets/images/icon-clock.svg'
+import MapIcon from '@/assets/images/icon-map.svg'
+import PeopleIcon from '@/assets/images/icon-people.svg'
+import OpsIcon from '@/assets/images/ops.svg'
 
 interface FilaInfo {
   upaName: string
@@ -92,10 +96,12 @@ export default function FilaScreen() {
       <SafeAreaView style={styles.container}>
         <View style={styles.bodyCenter}>
           <View style={styles.photoDiv}>
-            <Image
-            source={require('@/assets/images/ops.png')}
-            style={styles.opsImage}
-            />
+            <OpsIcon
+            width={100}
+            height={100}
+            fill="transparent"
+            style={styles.icon}
+          />
             <Text style={styles.opsTitle}>Ops!</Text>
           </View>
           <Text style={styles.opsSubtitle}>
@@ -138,6 +144,7 @@ export default function FilaScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>{fila.upaName}</Text>
       </View>
@@ -154,8 +161,10 @@ export default function FilaScreen() {
 
       <View style={styles.gridRow}>
         <View style={[styles.subCard, { marginRight: 8 }]}>
-          <Image
-            source={require('@/assets/images/icon-people.png')}
+          <PeopleIcon
+            width={51}
+            height={51}
+            fill="#16722A"
             style={styles.icon}
           />
           <Text style={styles.subValue}>
@@ -166,8 +175,10 @@ export default function FilaScreen() {
           </Text>
         </View>
         <View style={[styles.subCard, { marginLeft: 8 }]}>
-          <Image
-            source={require('@/assets/images/icon-clock.png')}
+          <ClockIcon
+            width={51}
+            height={51}
+            fill="#16722A"
             style={styles.icon}
           />
           <Text style={styles.subValue}>
@@ -180,10 +191,12 @@ export default function FilaScreen() {
       </View>
 
       <View style={styles.routeCard}>
-        <Image
-          source={require('@/assets/images/icon-map.png')}
-          style={styles.iconMap}
-        />
+        <MapIcon
+            width={51}
+            height={51}
+            fill="transparent"
+            style={styles.icon}
+          />
         <View style={styles.adressContainer}>
           <Text style={styles.routeAddress}>
             {fila.address}
@@ -210,6 +223,7 @@ export default function FilaScreen() {
       >
         <Text style={styles.exitText}>Sair da fila</Text>
       </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -222,6 +236,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 8,
     marginTop: 16,
+  },
+  scrollContent: {
+    paddingBottom: 24,
   },
   headerText: { fontSize: 20, textAlign: 'center', color: '#333', fontWeight: 'bold', },
   mainCard: {
@@ -331,7 +348,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.20,
     shadowRadius: 4,
-    elevation: 5,  
+    elevation: 6,
   },
   opsSubtitle: {
     fontSize: 24,
@@ -341,7 +358,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.40,
     shadowRadius: 4,
-    elevation: 5,
+    elevation: 6,
     marginBottom: 10,
     maxWidth: 315,
   },
@@ -353,7 +370,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.40,
     shadowRadius: 4,
-    elevation: 5,
+    elevation: 6,
     marginTop: 10,
     maxWidth: 315,
   },
